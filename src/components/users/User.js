@@ -62,7 +62,7 @@ const User = props => {
             >
               {`${props.user.address.street} ${props.user.address.suite}`}
               <br />
-              {`${props.user.address.city} ${props.user.address.zipcode}`}
+              {`${props.user.address.city}, ${props.user.address.zipcode}`}
             </Typography>
           </CardContent>
           <CardActions>

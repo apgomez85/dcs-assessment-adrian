@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import User from "./User";
 import { Grid, Button, Container } from "@material-ui/core";
+import { Alert, AlertTitle } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   button: {
     margin: "3rem",
+    fontSize: "1.6rem"
+  },
+  alert: {
     fontSize: "1.6rem"
   }
 });
@@ -16,14 +20,26 @@ const UserList = () => {
   const [users, setUsers] = useState([]);
 
   async function getUser() {
-    let randomUserId = Math.floor(Math.random() * 10) + 1;
+    try {
+      let randomUserId = Math.floor(Math.random() * 10) + 1;
 
-    const res = await fetch(
-      `https://jsonplaceholder.typicode.com/users/${randomUserId}`
-    );
-    const json = await res.json();
-    setUsers([json]);
+      const res = await fetch(
+        `https://jsonplaceholder.typicode.com/users/${randomUserId}`
+      );
+      const user = await res.json();
+      setUsers([user]);
+    } catch (error) {
+      let alert = document.getElementById("user-alert");
+      alert.style.display = "block";
+      setTimeout(function() {
+        alert.style.display = "none";
+      }, 5000);
+    }
   }
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <Container maxWidth={false}>
@@ -37,6 +53,7 @@ const UserList = () => {
           >
             Change User
           </Button>
+
           <Grid
             container
             spacing={2}
@@ -50,6 +67,12 @@ const UserList = () => {
               </Grid>
             ))}
           </Grid>
+          <div id="user-alert" style={{ display: "none" }}>
+            <Alert className={classes.alert} severity="error">
+              <AlertTitle className={classes.alert}>Error</AlertTitle>
+              There was an error fetching the data.
+            </Alert>
+          </div>
         </Grid>
       ) : null}
     </Container>
