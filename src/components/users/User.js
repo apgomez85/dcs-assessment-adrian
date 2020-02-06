@@ -13,6 +13,7 @@ const useStyles = makeStyles({
   root: {
     boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)"
   },
+  //Remove this styling if want to resize card depending on its content
   cardContent: {
     width: 300,
     height: 350
@@ -44,6 +45,7 @@ const User = props => {
           <CardContent className={classes.cardContent}>
             <CardMedia
               className={classes.media}
+              //Random pic API
               image="https://i.pravatar.cc/300"
               title={props.user.name}
             />

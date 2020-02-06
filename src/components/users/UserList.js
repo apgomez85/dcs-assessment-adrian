@@ -19,6 +19,7 @@ const UserList = () => {
 
   const [users, setUsers] = useState([]);
 
+  //Fetch random user with ID 1-10 or display alert if error
   const getUser = async () => {
     try {
       let randomUserId = Math.floor(Math.random() * 10) + 1;
@@ -37,10 +38,12 @@ const UserList = () => {
     }
   };
 
+  //Clear Users from state
   const removeUsers = () => {
     setUsers([]);
   };
 
+  //Get User on load
   useEffect(() => {
     getUser();
   }, []);
