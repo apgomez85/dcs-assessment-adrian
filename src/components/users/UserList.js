@@ -19,7 +19,7 @@ const UserList = () => {
 
   const [users, setUsers] = useState([]);
 
-  async function getUser() {
+  const getUser = async () => {
     try {
       let randomUserId = Math.floor(Math.random() * 10) + 1;
 
@@ -27,7 +27,7 @@ const UserList = () => {
         `https://jsonplaceholder.typicode.com/users/${randomUserId}`
       );
       const user = await res.json();
-      setUsers([user]);
+      setUsers([...users, user]);
     } catch (error) {
       let alert = document.getElementById("user-alert");
       alert.style.display = "block";
@@ -35,7 +35,11 @@ const UserList = () => {
         alert.style.display = "none";
       }, 5000);
     }
-  }
+  };
+
+  const removeUsers = () => {
+    setUsers([]);
+  };
 
   useEffect(() => {
     getUser();
@@ -51,7 +55,15 @@ const UserList = () => {
             color="primary"
             onClick={getUser}
           >
-            Change User
+            Add User
+          </Button>
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="secondary"
+            onClick={removeUsers}
+          >
+            Clear List
           </Button>
 
           <Grid
