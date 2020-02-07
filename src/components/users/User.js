@@ -38,6 +38,8 @@ const useStyles = makeStyles({
 const User = props => {
   const classes = useStyles();
 
+  const { name, address, website, email } = props.user;
+
   return (
     <>
       {props.user ? (
@@ -47,7 +49,7 @@ const User = props => {
               className={classes.media}
               //Random pic API
               image="https://i.pravatar.cc/300"
-              title={props.user.name}
+              title={name}
             />
             <Typography
               className={classes.name}
@@ -55,16 +57,16 @@ const User = props => {
               variant="h2"
               component="h1"
             >
-              {props.user.name}
+              {name}
             </Typography>
             <Typography
               className={classes.paragraph}
               variant="body1"
               component="p"
             >
-              {`${props.user.address.street} ${props.user.address.suite}`}
+              {`${address.street} ${address.suite}`}
               <br />
-              {`${props.user.address.city}, ${props.user.address.zipcode}`}
+              {`${address.city}, ${address.zipcode}`}
             </Typography>
           </CardContent>
           <CardActions>
@@ -72,7 +74,7 @@ const User = props => {
               className={classes.button}
               size="small"
               color="primary"
-              href={props.user.website}
+              href={website}
               target="_blank"
             >
               Website
@@ -81,7 +83,7 @@ const User = props => {
               className={classes.button}
               size="small"
               color="primary"
-              href={`mailto:${props.user.email}`}
+              href={`mailto:${email}`}
             >
               Contact
             </Button>
